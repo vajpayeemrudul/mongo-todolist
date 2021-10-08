@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect(<mongo atlas URI>, {useNewUrlParser: true, useUnifiedTopology:true});
+mongoose.connect("mongodb+srv://admin-mrudul:Anujsuman1@cluster0.ha71d.mongodb.net/todolistDB", {useNewUrlParser: true, useUnifiedTopology:true});
 
 
 //Schema
