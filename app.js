@@ -12,9 +12,8 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://admin-mrudul:Anujsuman1@cluster0.ha71d.mongodb.net/todolistDB", {useNewUrlParser: true, useUnifiedTopology:true});
-// const items = ["Buy Food", "Cook Food", "Eat Food"];
-// const workItems = [];
+mongoose.connect(<mongo atlas URI>, {useNewUrlParser: true, useUnifiedTopology:true});
+
 
 //Schema
 const itemsSchema ={
@@ -168,3 +167,4 @@ if (port == null || port == "") {
 app.listen(port, function() {
   console.log("Server started");
 });
+
