@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -12,7 +12,9 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://admin-mrudul:Anujsuman1@cluster0.ha71d.mongodb.net/todolistDB", {useNewUrlParser: true, useUnifiedTopology:true});
+const mongorul=process.env.MONGO_URL;
+
+mongoose.connect(mongorul, {useNewUrlParser: true, useUnifiedTopology:true});
 
 
 //Schema
@@ -168,3 +170,7 @@ app.listen(port, function() {
   console.log("Server started");
 });
 
+
+//https://todolist4935.herokuapp.com/
+// heroku on mrudulrcoem@gmail
+// mongo atlas account on mrudulrcoem@gmail
