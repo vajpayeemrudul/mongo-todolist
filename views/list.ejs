@@ -1,5 +1,5 @@
 <%- include("header") -%>
-
+<%- include("nav") -%>
   <div class="box" id="heading">
     <h1> <%= listTitle %> </h1>
   </div>
@@ -14,7 +14,7 @@
           </div>
           <input type ="hidden" name="listName" value="<%= listTitle %>"></input>
         </form>
-        
+  
       <% }); %>
 
       <form class="item" action="/" method="post">

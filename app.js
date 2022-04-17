@@ -3,7 +3,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");
-// const date = require(__dirname + "/date.js");
 
 const app = express();
 
@@ -16,11 +15,11 @@ const mongorul=process.env.MONGO_URL;
 
 mongoose.connect(mongorul, {useNewUrlParser: true, useUnifiedTopology:true});
 
-
 //Schema
 const itemsSchema ={
   name: String
 };
+
 //Mongoose model
 const Item = mongoose.model("item", itemsSchema);
 
@@ -47,7 +46,8 @@ const listSchema = {
 const List =mongoose.model("List",listSchema);
 
 
-//Dynamic List  route
+//Dynamic List route
+const name="";
 app.get("/:customListName", function(req,res){
   const customListName = _.capitalize(req.params.customListName);
   
@@ -57,11 +57,10 @@ app.get("/:customListName", function(req,res){
       if(!foundList)
         {
           //creating new lists
-          const list= new List({
+            const list= new List({
             name: customListName,
             items: defaultItems
           });
-        
           list.save();
           res.redirect("/"+customListName);
 
@@ -150,7 +149,6 @@ app.post("/delete", function(req,res){
    }
    
 });
-
 
 
 // app.get("/work", function(req,res){
