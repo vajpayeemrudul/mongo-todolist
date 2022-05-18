@@ -1,48 +1,42 @@
+// using config file to hide important data.
 require('dotenv').config();
+
+//requiring various packages which we need.
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 
+//Making express app.
 const app = express();
 
+//Making express app to visit views folder by setting view engine to ejs
 app.set('view engine', 'ejs');
 
+//Using bodyparser to parse user input
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+//Making Mongodb connection using mongoose
 const mongorul=process.env.MONGO_URL;
-
 mongoose.connect(mongorul, {useNewUrlParser: true, useUnifiedTopology:true});
 
-//Schema
+//Item Schema and mongoose model
 const itemsSchema ={
   name: String
 };
-
-//Mongoose model
 const Item = mongoose.model("item", itemsSchema);
-
 const item1 = new Item({
-  name: "Morning Excercise"
+  name: "Hi Welcome to TodoList"
 });
+// Making default Array to render data if no data is added by user.
+const defaultItems = [item1];
 
-const item2 = new Item({
-  name: "Have three meals a day"
-});
-
-const item3 = new Item({
-  name: "have six hour sleep a day"
-});
-
-const defaultItems = [item1,item2,item3];
-
-//customlist schema
+//customlist schema and mongoose model
 const listSchema = {
   name: String,
   items: [itemsSchema]
 };
-//customlist model
 const List =mongoose.model("List",listSchema);
 
 
@@ -76,6 +70,7 @@ app.get("/:customListName", function(req,res){
   
 });
 
+//Home route get method.
 app.get("/", function(req, res) {
 
 Item.find({}, function(err,foundItems){
@@ -101,7 +96,7 @@ Item.find({}, function(err,foundItems){
 });
 
 
-
+//Post method to get user inputs 
 app.post("/", function(req, res){
 
   const itemName = req.body.newItem;
@@ -124,9 +119,17 @@ app.post("/", function(req, res){
     })
   }
   
-
 });
 
+
+// app.post("/add", function(req,res){
+//   const newListName=req.body.newList;
+//   const List = new List({
+//   })
+// })
+
+
+// Delete route method
 app.post("/delete", function(req,res){
    const checkedItemId = req.body.checkbox;
    const listName = req.body.listName;
